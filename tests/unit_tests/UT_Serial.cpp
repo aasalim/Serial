@@ -1,5 +1,4 @@
 #include "MocksSerial.h"
-#include "Serial.c"
 #include "Serial.h"
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
@@ -18,12 +17,7 @@ protected:
     {
         spdlog::default_logger_raw()->set_level(spdlog::level::debug);
         // Initialize resources, if needed
-        serial.buadrate = 9600;
-        serial.ringBuffer.buffer = buffer;
-        serial.ringBuffer.capacity = 64;
-        serial.config = SERIAL_8N1;
         pMocksSerial = &Serial;
-        _serial = &serial;
         EXPECT_CALL(Serial, serialSetup_Hook(_)).WillOnce(Return(true));
         Serial_Init();
     }
@@ -34,9 +28,7 @@ protected:
         // Clean up resources, if needed
     }
     int16_t result;
-    Serial_t serial;
     MocksSerial Serial;
-    uint8_t buffer[64];
 };
 
 TEST_F(SerialUnitTest, Test_Serial_Init_Hardware_Setup_False)

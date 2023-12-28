@@ -45,7 +45,7 @@ typedef struct {
     /**
      * @brief Ring buffer for handling incoming and outgoing data.
      */
-    RingBuffer_t ringBuffer;
+    RingBuffer_t* ringBuffer;
 
     /**
      * @brief Baud rate for serial communication.

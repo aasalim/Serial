@@ -8,5 +8,7 @@
 class MocksSerial {
 public:
     MOCK_METHOD(bool, serialSetup_Hook, (Serial_t * self));
+    uint8_t SerialBuffer[64];
+    RingBuffer_t SerialRingBuffer;
 };
 #endif

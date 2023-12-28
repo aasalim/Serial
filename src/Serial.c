@@ -5,21 +5,21 @@
  *
  * This static pointer is used internally to reference the serial communication interface.
  */
-static Serial_t* _serial;
+static Serial_t _serial;
 
 bool Serial_Init()
 {
     /**
      * @brief Check if hardware setup is successful.
      */
-    if (!serialSetup_Hook(_serial)) {
+    if (!serialSetup_Hook(&_serial)) {
         return false;
     }
 
     /**
      * @brief Set up the ring buffer for the serial communication interface.
      */
-    RingBuffer_Setup(&_serial->ringBuffer);
+    RingBuffer_Setup(_serial.ringBuffer);
 
     /**
      * @brief Return true to indicate successful initialization.
@@ -34,7 +34,7 @@ uint8_t writeByte(uint8_t byte)
      * @return The number of bytes successfully written (1 if successful, 0 if the ring buffer is
      * full).
      */
-    return (uint8_t)RingBuffer_Write(&_serial->ringBuffer, byte);
+    return (uint8_t)RingBuffer_Write(_serial.ringBuffer, byte);
 }
 
 uint8_t writeBytes(const uint8_t* buffer, uint8_t size)
@@ -51,7 +51,7 @@ uint8_t writeBytes(const uint8_t* buffer, uint8_t size)
         /**
          * @brief Check if the ring buffer is full before writing each byte.
          */
-        if (!RingBuffer_Write(&_serial->ringBuffer, *(buffer++))) {
+        if (!RingBuffer_Write(_serial.ringBuffer, *(buffer++))) {
             break;
         }
     }
@@ -72,7 +72,7 @@ int16_t readByte()
     /**
      * @brief Attempt to read a byte from the serial interface using the associated ring buffer.
      */
-    if (!RingBuffer_Read(&_serial->ringBuffer, &byte)) {
+    if (!RingBuffer_Read(_serial.ringBuffer, &byte)) {
         /**
          * @brief Return -1 if the ring buffer is empty.
          */
@@ -96,7 +96,7 @@ int16_t peekByte()
      * @brief Attempt to peek at the next byte in the serial interface using the associated ring
      * buffer.
      */
-    if (!RingBuffer_Peek(&_serial->ringBuffer, &byte)) {
+    if (!RingBuffer_Peek(_serial.ringBuffer, &byte)) {
         /**
          * @brief Return -1 if the ring buffer is empty.
          */
@@ -115,5 +115,5 @@ int16_t availableBytes()
      * @brief Return the number of available bytes in the serial interface using the associated ring
      * buffer.
      */
-    return (int16_t)RingBuffer_Size(&_serial->ringBuffer);
+    return (int16_t)RingBuffer_Size(_serial.ringBuffer);
 }
