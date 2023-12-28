@@ -37,6 +37,8 @@ if(PROJECT_IS_TOP_LEVEL)
 endif()
 
 # Dependencies
+add_subdirectory(external/RingBuffer)
+add_subdirectory(external/Stream)
 
 # Source Directory
 add_subdirectory(src)

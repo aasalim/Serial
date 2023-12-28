@@ -4,3 +4,9 @@
 [submodule "external/spdlog"]
 	path = external/spdlog
 	url = https://github.com/gabime/spdlog.git
+[submodule "external/RingBuffer"]
+	path = external/RingBuffer
+	url = https://github.com/aasalim/RingBuffer.git
+[submodule "external/Stream"]
+	path = external/Stream
+	url = https://github.com/aasalim/Stream.git
