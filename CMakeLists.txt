@@ -37,8 +37,19 @@ if(PROJECT_IS_TOP_LEVEL)
 endif()
 
 # Dependencies
-add_subdirectory(external/RingBuffer)
-add_subdirectory(external/Stream)
+include(FetchContent)
+FetchContent_Declare(
+    RingBuffer
+    GIT_REPOSITORY https://github.com/aasalim/RingBuffer.git
+    GIT_TAG main # Use the main branch
+)
+FetchContent_MakeAvailable(RingBuffer)
+FetchContent_Declare(
+    Stream
+    GIT_REPOSITORY https://github.com/aasalim/Stream.git
+    GIT_TAG main # Use the main branch
+)
+FetchContent_MakeAvailable(Stream)
 
 # Source Directory
 add_subdirectory(src)
